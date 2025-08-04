@@ -1,21 +1,29 @@
-# Start from the official n8n image
-FROM n8nio/n8n:latest
-
-# Set working directory
-WORKDIR /home/node
-
-# Ensure environment variables are respected
-ENV N8N_BASIC_AUTH_ACTIVE=true \
-    N8N_BASIC_AUTH_USER=neilfox \
-    N8N_BASIC_AUTH_PASSWORD=your_secure_password \
-    N8N_PORT=10000 \
-    N8N_HOST=0.0.0.0 \
-    WEBHOOK_TUNNEL_URL=https://n8n-banl.onrender.com \
-    N8N_USER_MANAGEMENT_DISABLED=true \
-    GENERIC_TIMEZONE=America/New_York
-
-# Set the port for Render
-EXPOSE 10000
-
-# Default command
-CMD ["n8n"]
+services:
+  - type: web
+    name: n8n
+    env: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    autoDeploy: false
+    startCommand: "n8n"
+    envVars:
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: true
+      - key: N8N_BASIC_AUTH_USER
+        value: neilfox
+      - key: N8N_BASIC_AUTH_PASSWORD
+        value: your_secure_password
+      - key: N8N_PORT
+        value: 10000
+      - key: N8N_HOST
+        value: 0.0.0.0
+      - key: WEBHOOK_TUNNEL_URL
+        value: https://n8n-banl.onrender.com
+      - key: N8N_USER_MANAGEMENT_DISABLED
+        value: true
+      - key: GENERIC_TIMEZONE
+        value: America/New_York
+      - key: EXECUTIONS_DATA_PRUNE
+        value: true
+      - key: EXECUTIONS_DATA_MAX_AGE
+        value: 168 
