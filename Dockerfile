@@ -1,9 +1,11 @@
-FROM n8nio/n8n
+# Start from official n8n image
+FROM n8nio/n8n:latest
 
-# Set timezone and port
-ENV TZ=America/New_York
-ENV N8N_PORT=10000
+# Set working directory
+WORKDIR /home/node
 
+# Expose the port Render is expecting
 EXPOSE 10000
 
-CMD ["n8n"]
+# Use bash to call the n8n binary directly
+ENTRYPOINT ["/bin/sh", "-c", "n8n"]
