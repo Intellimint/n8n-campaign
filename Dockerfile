@@ -1,11 +1,5 @@
-# Start from official n8n image
-FROM n8nio/n8n:latest
+# Pin to a stable n8n version (avoid :latest surprises)
+FROM n8nio/n8n:2.3.4
 
-# Set working directory
-WORKDIR /home/node
-
-# Expose the port Render is expecting
-EXPOSE 10000
-
-# Use bash to call the n8n binary directly
-ENTRYPOINT ["/bin/sh", "-c", "n8n"]
+# n8n listens on 5678 inside the container
+EXPOSE 5678
