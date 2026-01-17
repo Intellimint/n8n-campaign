@@ -7,7 +7,6 @@ services:
     autoDeploy: false
     startCommand: "n8n"
     disk:
-      name: n8n-data
       mountPath: /home/node/.n8n
       sizeGB: 1
     envVars:
