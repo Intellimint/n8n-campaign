@@ -5,16 +5,32 @@ services:
     plan: starter
     dockerfilePath: ./Dockerfile
     autoDeploy: false
+
     disk:
       name: n8n-data
       mountPath: /home/node/.n8n
       sizeGB: 1
+
     envVars:
+      # Render uses PORT to route traffic to your container
+      - key: PORT
+        value: "5678"
+
+      # n8n should listen on 5678 inside the container
       - key: N8N_PORT
-        value: 10000
+        value: "5678"
+
+      # Public URL settings (important for webhook URLs + editor URLs)
       - key: N8N_HOST
-        value: 0.0.0.0
-      - key: WEBHOOK_TUNNEL_URL
-        value: https://n8n-banl.onrender.com
+        value: "n8n-banl.onrender.com"
+      - key: N8N_PROTOCOL
+        value: "https"
+      - key: WEBHOOK_URL
+        value: "https://n8n-banl.onrender.com/"
+
+      # Optional but helps n8n generate correct links in the UI
+      - key: N8N_EDITOR_BASE_URL
+        value: "https://n8n-banl.onrender.com/"
+
       - key: GENERIC_TIMEZONE
-        value: America/New_York
+        value: "America/New_York"
